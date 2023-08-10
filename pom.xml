@@ -1,0 +1,436 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.gvcc</groupId>
+	<artifactId>base-project</artifactId>
+	<version>1.0.7</version>
+	<name>GVCC - Base project</name>
+	<description>Progetto di base per la condivisione delle configurazioni</description>
+	<packaging>pom</packaging>
+	<properties>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+		<maven-release-plugin.version>3.0.0-M4</maven-release-plugin.version>
+		<maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+		<maven-pmd-plugin.version>3.17.0</maven-pmd-plugin.version>
+		<spotbugs-maven-plugin.version>4.4.2.2</spotbugs-maven-plugin.version>
+		<maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+		<maven-javadoc-plugin.version>3.3.1</maven-javadoc-plugin.version>
+		<maven-project-info-reports-plugin.version>3.1.2</maven-project-info-reports-plugin.version>
+		<maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
+		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+		<java.version>11</java.version>
+		<java.source.version>${java.version}</java.source.version>
+		<java.target.version>${java.version}</java.target.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- asset repository configuration -->
+		<repo.protocol>https</repo.protocol>
+		<repo.hostname>goffice-repo.gvcc.net</repo.hostname>
+		<repo.url>${repo.protocol}://${repo.hostname}/artifactory/</repo.url>
+		<repo.repository.releases>libs-release-local</repo.repository.releases>
+		<repo.repository.snapshots>libs-snapshot-local</repo.repository.snapshots>
+		<!-- continuous integration configuration -->
+		<ci.protocol>https</ci.protocol>
+		<ci.hostname>goffice-ci.gvcc.net</ci.hostname>
+		<ci.url>${ci.protocol}://${ci.hostname}/jenkins/</ci.url>
+		<!-- control system configuration -->
+		<scm.protocol>https</scm.protocol>
+		<scm.user>alm_user</scm.user>
+		<scm.hostname>gofficegit.gvcc.net</scm.hostname>
+		<scm.url>${scm.protocol}://${scm.user}@${scm.hostname}/</scm.url>
+		<scm.group.base>net.gvcc</scm.group.base>
+		<scm.group>${scm.group.base}</scm.group>
+		<scm.project>${project.artifactId}</scm.project>
+		<scm.connection>scm:git:${scm.url}${scm.group}/${scm.project}.git</scm.connection>
+		<scm.developer.connection>${scm.connection}</scm.developer.connection>
+		<im.protocol>${scm.protocol}</im.protocol>
+		<im.hostname>${scm.hostname}</im.hostname>
+		<im.group>${scm.group}</im.group>
+		<im.project>${scm.project}</im.project>
+		<im.url>${im.protocol}://${im.hostname}/${im.group}/${im.project}/issues</im.url>
+		<gvcc-prjversion-maven-plugin.version>1.0.4</gvcc-prjversion-maven-plugin.version>
+		<reporting.excludePackageNames>*.openapi:*.openapi.*</reporting.excludePackageNames>
+		<site.deploy.url>${report.site.outputDir}/snapshots</site.deploy.url>
+	</properties>
+	<developers>
+		<developer>
+			<id>Roberto</id>
+			<name>Roberto Cappuccio</name>
+			<email>goffice20@gvcc.net</email>
+			<organization>Consorzio dei Comuni della provincia di Bolzano
+				Soc.Coop.</organization>
+			<organizationUrl>https://www.gvcc.net</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>Simon</id>
+			<name>Simon Nogler</name>
+			<email>goffice20@gvcc.net</email>
+			<organization>Consorzio dei Comuni della provincia di Bolzano
+				Soc.Coop.</organization>
+			<organizationUrl>https://www.gvcc.net</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>Renzo</id>
+			<name>Renzo Poli</name>
+			<email>goffice20@gvcc.net</email>
+			<organization>Consorzio dei Comuni della provincia di Bolzano
+				Soc.Coop.</organization>
+			<organizationUrl>https://www.gvcc.net</organizationUrl>
+			<roles>
+				<role>IT Architect</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>Domingo</id>
+			<name>Domingo Sacristan</name>
+			<email>goffice20@gvcc.net</email>
+			<organization>Consorzio dei Comuni della provincia di Bolzano
+				Soc.Coop.</organization>
+			<organizationUrl>https://www.gvcc.net</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>Sara</id>
+			<name>Sara Tumiati</name>
+			<email>goffice20@gvcc.net</email>
+			<organization>Consorzio dei Comuni della provincia di Bolzano
+				Soc.Coop.</organization>
+			<organizationUrl>https://www.gvcc.net</organizationUrl>
+			<roles>
+				<role>Scrum Master</role>
+				<role>IT analyst</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>Walter</id>
+			<name>Walter Zoeggeler</name>
+			<email>goffice20@gvcc.net</email>
+			<organization>Consorzio dei Comuni della provincia di Bolzano
+				Soc.Coop.</organization>
+			<organizationUrl>https://www.gvcc.net</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<scm>
+		<connection>${scm.connection}</connection>
+		<developerConnection>${scm.developer.connection}</developerConnection>
+		<tag>base-project-1.0.7</tag>
+	</scm>
+	<issueManagement>
+		<url>${im.url}</url>
+		<system>Issues</system>
+	</issueManagement>
+	<distributionManagement>
+		<repository>
+			<id>goffice2-repo</id>
+			<name>goffice2-releases</name>
+			<url>${repo.url}${repo.repository.releases}</url>
+		</repository>
+		<snapshotRepository>
+			<id>goffice2-repo</id>
+			<name>goffice2-snapshots</name>
+			<url>${repo.url}${repo.repository.snapshots}</url>
+		</snapshotRepository>
+		<site>
+			<id>goffice-doc-site</id>
+			<url>file://${site.deploy.url}/</url>
+		</site>
+	</distributionManagement>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>${maven-site-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven-assembly-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>${maven-checkstyle-plugin.version}</version>
+					<!-- for rules, see: https://checkstyle-addons.thomasjensen.com/checkstyle-compatibility-matrix.html -->
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>10.3.1</version>
+						</dependency>
+						<!--						<dependency>-->
+						<!--							<groupId>net.gvcc</groupId>-->
+						<!--							<artifactId>gvcc-checkstyle-customization</artifactId>-->
+						<!--							<version>1.0.0-SNAPSHOT</version>-->
+						<!--						</dependency>-->
+					</dependencies>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.source.version}</source>
+					<target>${java.target.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<!-- profile used to generate the site informations about project -->
+		<!-- only used when the property 'report.site.enabled' is true (see settings.xml in continuous integration) -->
+		<profile>
+			<id>generate-site</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>report.site.enabled</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!--					<plugin>-->
+					<!--						<groupId>org.apache.maven.plugins</groupId>-->
+					<!--						<artifactId>maven-scm-publish-plugin</artifactId>-->
+					<!--						<version>3.1.0</version>-->
+					<!--						<configuration>-->
+					<!--							<pubScmUrl>${project.scm.developerConnection}</pubScmUrl>-->
+					<!--							<scmBranch>maven-site</scmBranch>-->
+					<!--							<content>${project.build.directory}/site</content>-->
+					<!--						</configuration>-->
+					<!--					</plugin>-->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-site-plugin</artifactId>
+						<!--						<dependencies>-->
+						<!--							<dependency>-->
+						<!--								<groupId>org.apache.maven.wagon</groupId>-->
+						<!--								<artifactId>wagon-ssh</artifactId>-->
+						<!--								<version>3.5.3</version>-->
+						<!--							</dependency>-->
+						<!--						</dependencies>-->
+						<configuration />
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>site</goal>
+									<goal>deploy</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<phase>test</phase>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<!-- profile which contains the list of plugins to use to generate reports about source code -->
+		<!-- they will be used only if src/main/java/** exists AND if the maven-site-plugin will be used -->
+		<profile>
+			<id>generate-report</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<file>
+					<exists>src/main/java</exists>
+				</file>
+			</activation>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-project-info-reports-plugin</artifactId>
+						<version>${maven-project-info-reports-plugin.version}</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-pmd-plugin</artifactId>
+						<version>${maven-pmd-plugin.version}</version>
+						<reportSets>
+							<!-- for project with modules -->
+							<reportSet>
+								<id>aggregate</id>
+								<inherited>false</inherited> <!-- don't run
+								aggregate in child modules -->
+								<reports>
+									<report>aggregate-pmd</report>
+									<report>aggregate-cpd</report>
+								</reports>
+							</reportSet>
+							<!-- for single project -->
+							<reportSet>
+								<id>default</id>
+								<reports>
+									<report>pmd</report>
+									<report>cpd</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin.version}</version>
+						<configuration>
+							<excludePackageNames>
+								${reporting.excludePackageNames}</excludePackageNames>
+						</configuration>
+						<reportSets>
+							<!-- for project with modules -->
+							<reportSet>
+								<id>aggregate</id>
+								<inherited>false</inherited> <!-- don't run
+								aggregate in child modules -->
+								<reports>
+									<report>aggregate</report>
+								</reports>
+							</reportSet>
+							<!-- for single project -->
+							<reportSet>
+								<id>default</id>
+								<reports>
+									<report>javadoc</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+					<plugin>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs-maven-plugin</artifactId>
+						<version>${spotbugs-maven-plugin.version}</version>
+						<configuration>
+							<excludePackageNames>
+								${reporting.excludePackageNames}</excludePackageNames>
+							<!-- <includeFilterFile>spotbugs-security-include.xml</includeFilterFile> -->
+							<!-- <excludeFilterFile>spotbugs-security-exclude.xml</excludeFilterFile> -->
+							<plugins>
+								<plugin>
+									<groupId>com.h3xstream.findsecbugs</groupId>
+									<artifactId>findsecbugs-plugin</artifactId>
+									<version>1.10.1</version>
+								</plugin>
+							</plugins>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>${jacoco-maven-plugin.version}</version>
+						<configuration>
+							<excludePackageNames>
+								${reporting.excludePackageNames}</excludePackageNames>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-checkstyle-plugin</artifactId>
+						<!-- for rules, see: https://checkstyle-addons.thomasjensen.com/checkstyle-compatibility-matrix.html -->
+						<!--						<configuration>-->
+						<!--							<configLocation>gvcc-checkstyle.xml</configLocation>-->
+						<!--						</configuration>-->
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>checkstyle</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+				</plugins>
+			</reporting>
+		</profile>
+		<profile>
+			<id>gvcc-release</id>
+			<properties>
+				<site.deploy.url>${report.site.outputDir}/releases</site.deploy.url>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>net.gvcc.maven.plugin</groupId>
+						<artifactId>gvcc-prjversion-maven-plugin</artifactId>
+						<version>${gvcc-prjversion-maven-plugin.version}</version>
+						<!-- about configuration, see settings.xml -->
+						<!-- <configuration> -->
+						<!-- 	<jdkPropName>PROPERTY_NAME</jdkPropName> -->
+						<!-- 	<filePath>PATH_OF_FILE</filePath> -->
+						<!-- 	<shellCmd>CMD_TO_EXECUTE</shellCmd> -->
+						<!-- </configuration> -->
+						<executions>
+							<execution>
+								<id>cleaning</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>clean</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>get-release</id>
+								<phase>package</phase>
+								<goals>
+									<goal>get</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
